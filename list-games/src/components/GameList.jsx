@@ -32,6 +32,25 @@ class GameList extends Component {
     });
   };
 
+  gameList = () => {
+    return this.state.gameList
+      .filter(game => !this.state.filter || game.rating > 4.5)
+      .map((game, index) => {
+        return (
+          <div
+            key={index}
+            className="game-line"
+            onClick={() =>
+              this.clickGame(game.name, game.background_image, game.rating)
+            }
+          >
+            <div className="game-name">{game.name}</div>
+            <img src={game.background_image} />
+          </div>
+        );
+      });
+  };
+
   componentDidMount() {
     this.retrieveGameList();
   }
@@ -42,23 +61,7 @@ class GameList extends Component {
         <div className="best-games-lines" onClick={this.bestGameFilter}>
           {this.state.filter ? "All Games" : "Show Only the Best :)"}
         </div>
-        {this.state.gameList
-          .filter(game => !this.state.filter || game.rating > 4.5)
-          .map((game, index) => {
-            return (
-              <div
-                key={index}
-                className="game-line"
-                onClick={() =>
-                  this.clickGame(game.name, game.background_image, game.rating)
-                }
-              >
-                <div className="game-name">{game.name}</div>
-                <img src={game.background_image} />
-              </div>
-            );
-          })}
-        ;
+        {this.gameList()}
       </div>
     );
   }
