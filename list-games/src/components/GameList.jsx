@@ -4,7 +4,7 @@ import "./GameList.css";
 class GameList extends Component {
   constructor(props) {
     super(props);
-    this.state = { gamesLoaded: false, gameList: [], game: {} };
+    this.state = { gamesLoaded: false, gameList: [], game: {}, filter: false };
   }
 
   retrieveGameList = () => {
@@ -26,25 +26,41 @@ class GameList extends Component {
     );
   };
 
+  bestGameFilter = () => {
+    this.setState({
+      filter: !this.state.filter
+    });
+  };
+
   componentDidMount() {
     this.retrieveGameList();
   }
 
   render() {
-    return this.state.gameList.map((game, index) => {
-      return (
-        <div
-          key={index}
-          className="game-line"
-          onClick={() =>
-            this.clickGame(game.name, game.background_image, game.rating)
-          }
-        >
-          <div className="game-name">{game.name}</div>
-          <img src={game.background_image} />
+    return (
+      <div>
+        <div className="best-games-lines" onClick={this.bestGameFilter}>
+          {this.state.filter ? "All Games" : "Show Only the Best :)"}
         </div>
-      );
-    });
+        {this.state.gameList
+          .filter(game => !this.state.filter || game.rating > 4.5)
+          .map((game, index) => {
+            return (
+              <div
+                key={index}
+                className="game-line"
+                onClick={() =>
+                  this.clickGame(game.name, game.background_image, game.rating)
+                }
+              >
+                <div className="game-name">{game.name}</div>
+                <img src={game.background_image} />
+              </div>
+            );
+          })}
+        ;
+      </div>
+    );
   }
 }
 
