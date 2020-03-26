@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import './GameList.css'
+import "./GameList.css";
 
 class GameList extends Component {
   constructor(props) {
     super(props);
-    this.state = { gamesLoaded: false, gameList: [] };
+    this.state = { gamesLoaded: false, gameList: [], game: {} };
   }
 
   retrieveGameList = () => {
@@ -15,6 +15,17 @@ class GameList extends Component {
       .then(data => this.setState({ gameList: data }));
   };
 
+  clickGame = (gameName, gameImage, gameRating) => {
+    this.setState(
+      {
+        game: { name: gameName, image: gameImage, rating: gameRating }
+      },
+      () => {
+        this.props.getGameClick(this.state.game);
+      }
+    );
+  };
+
   componentDidMount() {
     this.retrieveGameList();
   }
@@ -22,9 +33,15 @@ class GameList extends Component {
   render() {
     return this.state.gameList.map((game, index) => {
       return (
-        <div key={index} className="game-line">
-            <div className='game-name'>{game.name}</div>
-            <img src={game.background_image}/>
+        <div
+          key={index}
+          className="game-line"
+          onClick={() =>
+            this.clickGame(game.name, game.background_image, game.rating)
+          }
+        >
+          <div className="game-name">{game.name}</div>
+          <img src={game.background_image} />
         </div>
       );
     });

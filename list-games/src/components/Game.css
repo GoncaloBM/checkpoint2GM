@@ -1,0 +1,16 @@
+.game-click {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 100vh;
+}
+
+.game-image {
+  width: 80%;
+}
+
+.game-title {
+  font-size: 5rem;
+}

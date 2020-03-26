@@ -1,21 +1,43 @@
 import React, { Component } from "react";
 import GameList from "./components/GameList";
-import logo from "./logo.svg";
+import Game from "./components/Game";
 import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { gameClicked: {}, gameChosen: false };
   }
+
+  getGameClick = state => {
+    this.setState({
+      gameClicked: state,
+      gameChosen: true
+    });
+  };
+
+  resetChoice = () => {
+    this.setState({
+      gameClicked: {},
+      gameChosen: false
+    });
+  };
 
   render() {
     return (
       <div className="App">
         <div className="game-list">
-          <GameList />
+          <GameList getGameClick={this.getGameClick} />
         </div>
-        <div className='game-display'></div>
+        <div className="game-display">
+          <Game
+            gameName={this.state.gameClicked.name}
+            gameImage={this.state.gameClicked.image}
+            gameRating={this.state.gameClicked.rating}
+            gameChosen={this.state.gameChosen}
+            resetChoice = {this.resetChoice}
+          />
+        </div>
       </div>
     );
   }
