@@ -1,0 +1,14 @@
+.game-line {
+    display: flex;
+    flex-direction: row;
+    height: 6rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    margin-bottom: 2px;
+    border: 1px solid black;
+}
+
+.game-line img {
+    height: 100%;
+}
