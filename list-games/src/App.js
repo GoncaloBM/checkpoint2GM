@@ -34,8 +34,10 @@ class App extends Component {
             gameName={this.state.gameClicked.name}
             gameImage={this.state.gameClicked.image}
             gameRating={this.state.gameClicked.rating}
+            gameId={this.state.gameClicked.id}
+            gameScreenshot={this.state.gameClicked.screenshots}
             gameChosen={this.state.gameChosen}
-            resetChoice = {this.resetChoice}
+            resetChoice={this.resetChoice}
           />
         </div>
       </div>

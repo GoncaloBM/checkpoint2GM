@@ -15,10 +15,16 @@ class GameList extends Component {
       .then(data => this.setState({ gameList: data }));
   };
 
-  clickGame = (gameName, gameImage, gameRating) => {
+  clickGame = (gameName, gameImage, gameRating, gameId,gameScreenshots) => {
     this.setState(
       {
-        game: { name: gameName, image: gameImage, rating: gameRating }
+        game: {
+          name: gameName,
+          image: gameImage,
+          rating: gameRating,
+          id: gameId,
+          screenshots: gameScreenshots
+        }
       },
       () => {
         this.props.getGameClick(this.state.game);
@@ -41,7 +47,13 @@ class GameList extends Component {
             key={index}
             className="game-line"
             onClick={() =>
-              this.clickGame(game.name, game.background_image, game.rating)
+              this.clickGame(
+                game.name,
+                game.background_image,
+                game.rating,
+                game.id,
+                game.short_screenshots
+              )
             }
           >
             <div className="game-name">{game.name}</div>
